@@ -1,5 +1,6 @@
 import React from 'react';
-import styles from './ShoppingCart.module.css'
+import styles from './ShoppingCart.module.css';
+import { FiShoppingCart } from 'react-icons/fi';
 
 interface Props {
 
@@ -14,12 +15,23 @@ class ShoppingCart extends React.Component<Props, State> {
     super(props);
     this.state = {
       isOpen: false,
+    };
+    // this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log("e.target ", e.target);
+    console.log("e.currentTarget ", e.currentTarget);
+    if ((e.target as HTMLElement).nodeName === "SPAN") {
+      this.setState({ isOpen: !this.state.isOpen });
     }
   }
-  render(): React.ReactNode {
+  render() {
     return (
       <div className={styles.cartContainer}>
-        <button className={styles.button} onClick={() => { this.setState({ isOpen: !this.state.isOpen }) }}>购物车 2 (件)</button>
+        <button className={styles.button} onClick={this.handleClick}>
+          {React.createElement(FiShoppingCart as any)}
+          <span>购物车 2 (件)</span>
+        </button>
         <div className={styles.cartDropDown} style={{ display: this.state.isOpen ? 'block' : 'none' }}>
           <ul>
             <li>robot 1</li>
