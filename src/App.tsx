@@ -14,7 +14,9 @@ function App() {
       </div>
       <ShoppingCart></ShoppingCart>
       <div className={styles.robotList}>
-        {robots.map(r => <Robot id={r.id} email={r.email} name={r.name} />)}
+        {robots.map((r) => (
+          <Robot id={r.id} email={r.email} name={r.name} />
+        ))}
       </div>
     </div>
   );
