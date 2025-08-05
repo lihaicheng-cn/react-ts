@@ -29,7 +29,8 @@ class ShoppingCart extends React.Component<Props, State> {
     return (
       <div className={styles.cartContainer}>
         <button className={styles.button} onClick={this.handleClick}>
-          {React.createElement(FiShoppingCart as any)}
+          {/* {React.createElement(FiShoppingCart as any)} */}
+          <FiShoppingCart />
           <span>购物车 2 (件)</span>
         </button>
         <div className={styles.cartDropDown} style={{ display: this.state.isOpen ? 'block' : 'none' }}>
