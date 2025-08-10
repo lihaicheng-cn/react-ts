@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './assets/images/logo.svg';
 // import robots from './mockdata/robots.json';
 import Robot from './components/Robot';
@@ -14,6 +14,35 @@ interface State {
 
 const App: React.FC = (props) => {
   const [count, setCount] = useState<number>(0);
+  const [robotGallery, setRobotGallery] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>();
+
+  useEffect(() => {
+    document.title = `点击${count}次`;
+  }, [count]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+
+      try {
+        const responses = await fetch('https://jsonplaceholder.typicode.com/users');
+        // .then(response => response.json())
+        // .then(data => setRobotGallery(data))
+        const data = await responses.json();
+        setRobotGallery(data);
+      } catch (e) {
+        if (e instanceof Error) {
+          setError(e.message);
+        }
+      }
+
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className={styles.app}>
@@ -30,11 +59,16 @@ const App: React.FC = (props) => {
       </button>
       <span>count: {count}</span>
       <ShoppingCart></ShoppingCart>
-      {/* <div className={styles.robotList}>
-          {this.state.robotGallery.map((r) => (
+      {(!error || error !== '') && <div>网站出错：{error}</div>}
+      {!loading ? (
+        <div className={styles.robotList}>
+          {robotGallery.map((r) => (
             <Robot id={r.id} email={r.email} name={r.name} />
           ))}
-        </div> */}
+        </div>
+      ) : (
+        <h2>Loading 加载中...</h2>
+      )}
     </div>
   );
 };
