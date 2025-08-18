@@ -5,16 +5,14 @@ import Robot from './components/Robot';
 import styles from './App.module.css';
 import ShoppingCart from './components/ShoppingCart';
 
-interface Props {
-  username: string;
-}
+interface Props {}
 
 interface State {
   robotGallery: any[];
   count: number;
 }
 
-const App: React.FC<Props> = (props) => {
+const App: React.FC = (props) => {
   const [count, setCount] = useState<number>(0);
   const [robotGallery, setRobotGallery] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -52,8 +50,6 @@ const App: React.FC<Props> = (props) => {
         <img src={logo} className={styles.appLogo} alt="logo" />
         <h1>罗伯特机器人炫酷吊炸天online购物平台的名字要长</h1>
       </div>
-      <h2>{props.username}</h2>
-      {/* <Child username={props.username}></Child> */}
       <button
         onClick={() => {
           setCount(count + 1);
